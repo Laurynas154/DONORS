@@ -1,0 +1,78 @@
+<!DOCTYPE html>
+<html>
+<head>
+  <meta charset="UTF-8">
+  <style>
+    body {
+      margin: 0;
+      background: transparent;
+    }
+
+    #donatorBanner {
+      position: fixed;
+      bottom: 20px;
+      right: 20px;
+      background: rgba(0, 0, 0, 0.85);
+      color: white;
+      padding: 20px;
+      border-radius: 12px;
+      font-family: sans-serif;
+      opacity: 0;
+      transition: opacity 1s ease;
+      max-width: 300px;
+    }
+
+    #donatorBanner.visible {
+      opacity: 1;
+    }
+
+    h3 {
+      margin-top: 0;
+      font-size: 18px;
+    }
+
+    ul {
+      margin: 0;
+      padding-left: 20px;
+    }
+
+    li {
+      font-size: 14px;
+    }
+  </style>
+</head>
+<body>
+  <div id="donatorBanner">
+    <h3>Top 10 Donatoriai</h3>
+    <ul>
+      <li>1. Lukas</li>
+      <li>2. Mantas</li>
+      <li>3. Eglė</li>
+      <li>4. Tomas</li>
+      <li>5. Rūta</li>
+      <li>6. Andrius</li>
+      <li>7. Simona</li>
+      <li>8. Paulius</li>
+      <li>9. Erika</li>
+      <li>10. Dovydas</li>
+    </ul>
+  </div>
+
+  <script>
+    const banner = document.getElementById("donatorBanner");
+
+    function toggleBanner() {
+      banner.classList.add("visible");
+      setTimeout(() => {
+        banner.classList.remove("visible");
+      }, 10000); // Rodo 10 sek.
+    }
+
+    // Pirmą kartą parodo po 5 sek., tada kartoja kas 30 sek.
+    setTimeout(() => {
+      toggleBanner();
+      setInterval(toggleBanner, 30000);
+    }, 5000);
+  </script>
+</body>
+</html>
