@@ -1,36 +1,79 @@
+TOP 10,
 <!DOCTYPE html>
-<html lang="lt">
+<html>
 <head>
-    <meta charset="UTF-8">
-    <title>TOP 10 Donatoriai</title>
+  <meta charset="UTF-8">
+  <style>
+    body {
+      margin: 0;
+      background: transparent;
+    }
+
+    #donatorBanner {
+      position: fixed;
+      bottom: 20px;
+      right: 20px;
+      background: rgba(0, 0, 0, 0.85);
+      color: white;
+      padding: 20px;
+      border-radius: 12px;
+      font-family: sans-serif;
+      opacity: 0;
+      transition: opacity 1s ease;
+      max-width: 300px;
+    }
+
+    #donatorBanner.visible {
+      opacity: 1;
+    }
+
+    h3 {
+      margin-top: 0;
+      font-size: 18px;
+    }
+
+    ul {
+      margin: 0;
+      padding-left: 20px;
+    }
+
+    li {
+      font-size: 14px;
+    }
+  </style>
 </head>
 <body>
-    <h1>TOP 10 Donatoriai</h1>
-    <ul id="donor-list"></ul>
+  <div id="donatorBanner">
+    <h3>Top 10 Donatoriai</h3>
+    <ul>
+      <li>1. Lukas</li>
+      <li>2. Mantas</li>
+      <li>3. Eglė</li>
+      <li>4. Tomas</li>
+      <li>5. Rūta</li>
+      <li>6. Andrius</li>
+      <li>7. Simona</li>
+      <li>8. Paulius</li>
+      <li>9. Erika</li>
+      <li>10. Dovydas</li>
+    </ul>
+  </div>
 
-    <script>
-        const apiKey = "1624F2174BE6EF4588320B3850566266EE9EE8456BC1A816B4C1BFA3697A9B79F15B13163FEFDCC82CC69777AF30E7E8E7FB4DFAECE81A36CB4AD59383B1BC4196E928C2740C79776F62719ADF3FA06199274F79A18BE6A6C0CCCA094F8037045531248D2E7FB2C5167CD68E7408EDB5F161C8DA8C300007099254ABC0";
-        const url = https://streamlabs.com/api/v1.0/donations?access_token=${apiKey};
+  <script>
+    const banner = document.getElementById("donatorBanner");
 
-        async function getTopDonors() {
-            try {
-                let response = await fetch(url);
-                let data = await response.json();
-                let donors = data.donations.sort((a, b) => b.amount - a.amount).slice(0, 10);
+    function toggleBanner() {
+      banner.classList.add("visible");
+      setTimeout(() => {
+        banner.classList.remove("visible");
+      }, 10000); // Rodo 10 sek.
+    }
 
-                let list = document.getElementById("donor-list");
-                list.innerHTML = "";
-                donors.forEach((donor, index) => {
-                    let li = document.createElement("li");
-                    li.textContent = ${index + 1}. ${donor.name} - $${donor.amount};
-                    list.appendChild(li);
-                });
-            } catch (error) {
-                console.error("Klaida gaunant duomenis:", error);
-            }
-        }
-
-        getTopDonors();
-    </script>
+    // Pirmą kartą parodo po 5 sek., tada kartoja kas 30 sek.
+    setTimeout(() => {
+      toggleBanner();
+      setInterval(toggleBanner, 30000);
+    }, 5000);
+  </script>
 </body>
 </html>
